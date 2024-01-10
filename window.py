@@ -29,5 +29,14 @@ askbutton.place(x=260, y=125)
 answer = tkinter.Label(text="…………", bg="white")
 answer.place(x=115, y=235)
 
+# イベント設定
+def ask_click():
+    val = entry.get()
+    minutes = float(val)
+    hours = round(minutes / 60, 2)
+    answer["text"] = str(hours) + "時間だね！"
+    
+askbutton["command"] = ask_click
+
 # メインループ
 root.mainloop()
