@@ -42,6 +42,9 @@ def btn_click():
         serifu_text["text"] = "勇者「よーし、私に任せなさい！」"
     else:
         serifu_text["text"] = "志願者は誰も来ませんでした。"
+    sys_text.destroy()
+    entry["state"] = "disabled"
+    button["state"] = "disabled"
     
 button["command"] = btn_click
 
