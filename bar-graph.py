@@ -1,4 +1,5 @@
 import tkinter
+import time
 
 # ウィンドウ作成
 root = tkinter.Tk()
@@ -20,7 +21,7 @@ list = [70, 15, 66, 21, 19, 97, 33, 44, 30, 2]
 disp = ""
 # 繰り返し処理
 for k in range(len(list) - 1, 0, -1):
-    print(str(len(list) - k) + "度目")
+    # print(str(len(list) - k) + "度目")
     for j in range(0, k):
         if list[j] > list[j+1]:
             temp = list[j]
@@ -28,6 +29,8 @@ for k in range(len(list) - 1, 0, -1):
             list[j+1] = temp
         x = start_x
         y = start_y
+        root.update()
+        time.sleep(0.5)
         canvas.delete("graph")
         for i in list:
             canvas.create_rectangle(x, y, x + i * width_px, y + height_px, fill="blue", outline="blue", tag="graph")
