@@ -2,14 +2,18 @@ import tkinter
 import time
 
 # グラフ表示関数
-def draw_graph():
+def draw_graph(loop_count):
     x = start_x
     y = start_y
     root.update()
     time.sleep(0.5)
     canvas.delete("graph")
-    for i in list:
-        canvas.create_rectangle(x, y, x + i * width_px, y + height_px, fill="blue", outline="blue", tag="graph")
+    for i in range(len(list)):
+        if i == loop_count or i == loop_count +1:
+            color = "red"
+        else:
+            color = "blue"
+        canvas.create_rectangle(x, y, x + list[i] * width_px, y + height_px, fill="color", outline="color", tag="graph")
     y = y + height_px + distance_px
     #     disp = disp + str(i) + " "
     # print(disp)
@@ -41,5 +45,5 @@ for k in range(len(list) - 1, 0, -1):
             temp = list[j]
             list[j] = list[j+1]
             list[j+1] = temp
-        draw_graph()
+        draw_graph(j)
 root.mainloop()
