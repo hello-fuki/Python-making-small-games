@@ -20,6 +20,16 @@ canvas = tkinter.Canvas(width=620, height=434)
 canvas.place(x=10, y=10)
 canvas.create_rectangle(0, 0, 620, 434, fill="gray")
 
+# ボタン配置
+button_up = tkinter.Button(text="↑")
+button_up.place(x=720, y=150)
+button_down = tkinter.Button(text="↓")
+button_down.place(x=720, y=210)
+button_left = tkinter.Button(text="←")
+button_left.place(x=660, y=180)
+button_right = tkinter.Button(text="→")
+button_right.place(x=780, y=180)
+
 # 画像読み込み
 images = [tkinter.PhotoImage(file="img6/chap6-mapfield.png"),
           tkinter.PhotoImage(file="img6/chap6-mapwall.png"),
