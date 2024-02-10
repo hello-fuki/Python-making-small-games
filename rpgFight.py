@@ -1,4 +1,5 @@
 import tkinter
+import random
 
 class FightManager:
     # コンストラクタ
@@ -37,3 +38,23 @@ class FightManager:
         canvas.create_rectangle(0, 0, 620, 434, fill="red")
         canvas.create_text(300, 200, fill="white", font=("MS ゴシック", 15), text="""勇者は負けてしまった。
                            最初からやり直してくれたまえ。""")
+
+# キャラクターの親クラス
+class Character:
+    # 攻撃力を高める
+    def get_atk(self):
+        return random.randint(1, self.atk)
+    # 防御力を高める
+    def get_dfs(self):
+        return random.randint(0, self.dfs)
+    # 体力計算
+    def culc_hp(self, atk, dfs):
+        dmg = atk - dfs
+        # ダメージなし
+        if dmg < 1:
+            return self.hp
+        # 体力を減らす
+        self.hp = self.hp - dmg
+        if self.hp < 1:
+            self.hp = 0
+        return self.hp
