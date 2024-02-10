@@ -34,7 +34,7 @@ def check_move(x, y):
         brave_x = x
         brave_y = y
         draw_map()
-        canvas.coords("brave", brave_x*62+31, brave_y*62+31)
+        # canvas.coords("brave", brave_x*62+31, brave_y*62+31)
 
 # 上ボタンが押された
 def click_button_up():
