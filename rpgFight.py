@@ -58,3 +58,25 @@ class Character:
         if self.hp < 1:
             self.hp = 0
         return self.hp
+
+# 勇者クラス
+class Brave(Character):
+    def __init__(self):
+        self.name = "勇者ハル"
+        self.hp = 30
+        self.atk = 15
+        self.dfs = 10
+# モンスター１
+class Monster1(Character):
+    def __init__(self):
+        self.name = "マコデビル"
+        self.hp = 20
+        self.atk = 15
+        self.dfs = 5
+# モンスター２
+class Monster2(Character):
+    def __init__(self):
+        self.name = "リリースネーク"
+        self.hp = 10
+        self.atk = 8
+        self.dfs = 5

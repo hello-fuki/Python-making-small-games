@@ -111,6 +111,8 @@ map_data = [[1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
 # 主人公の位置
 brave_x = 1
 brave_y = 0
+brave = rpgFight.Brave()
+print(brave.get_atk())
 flag_key = False
 
 # 戦闘画面の準備
