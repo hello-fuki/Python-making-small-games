@@ -41,9 +41,18 @@ class FightManager:
 
 # キャラクターの親クラス
 class Character:
+    def __new__(cls):
+        obj = super().__new__(cls)
+        obj.rsv = 1
+        return obj
+    # 力をためる
+    def reserve(self):
+        self.rsv = self.rsv + 1
     # 攻撃力を高める
     def get_atk(self):
-        return random.randint(1, self.atk)
+        r = self.rsv
+        self.rsv = 1
+        return random.randint(1, self.atk * r)
     # 防御力を高める
     def get_dfs(self):
         return random.randint(0, self.dfs)
