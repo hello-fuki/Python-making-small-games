@@ -1,10 +1,13 @@
 import tkinter
+import rpgFight
 
 # マップの描画
 def draw_map():
     for y in range(0, MAX_HEIGHT):
         for x in range(0, MAX_WIDTH):
             p = map_data[y][x]
+            if p >= 5:
+                p = 5
             canvas.create_image(x*62+31, y*62+31, image=images[p])
     # 主人公表示
     canvas.create_image(brave_x*62+31, brave_y*62+31, image=images[4], tag="brave")
@@ -24,11 +27,15 @@ def check_move(x, y):
         elif p == 2:
             if flag_key == True:
                 ending()
+                return
             else:
                 return
+        elif p >= 5:
+            fightmanager.fight_start(map_data, x, y, brave)
         brave_x = x
         brave_y = y
-        canvas.coords("brave", brave_x*62+31, brave_y*62+31)
+        draw_map()
+        # canvas.coords("brave", brave_x*62+31, brave_y*62+31)
 
 # 上ボタンが押された
 def click_button_up():
@@ -88,23 +95,29 @@ images = [tkinter.PhotoImage(file="img6/chap6-mapfield.png"),
           tkinter.PhotoImage(file="img6/chap6-mapwall.png"),
           tkinter.PhotoImage(file="img6/chap6-mapgoal.png"),
           tkinter.PhotoImage(file="img6/chap6-mapkey.png"),
-          tkinter.PhotoImage(file="img6/chap6-mapman.png")]
+          tkinter.PhotoImage(file="img6/chap6-mapman.png"),
+          tkinter.PhotoImage(file="img6/chap7-mapmonster.png")]
 
 # マップデータ
 MAX_WIDTH = 10
 MAX_HEIGHT = 7
 map_data = [[1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 0, 0, 1, 2, 0, 0, 1, 3, 1],
+            [1, 0, 0, 1, 2, 0, 6, 1, 3, 1],
             [1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-            [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 5, 0, 0, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 6, 1],
+            [1, 0, 6, 0, 0, 0, 0, 0, 0, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],]
 
 # 主人公の位置
 brave_x = 1
 brave_y = 0
+brave = rpgFight.Brave()
+print(brave.get_atk())
 flag_key = False
+
+# 戦闘画面の準備
+fightmanager = rpgFight.FightManager()
 
 draw_map()
 root.mainloop()
