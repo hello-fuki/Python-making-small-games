@@ -50,11 +50,85 @@ class FightManager:
     
     # 攻撃ボタン
     def click_fight(self):
-        pass
+        self.fbutton["state"] = "disabled"
+        self.rbutton["state"] = "disabled"
+        self.do_turn(self.brave.get_atk())
     
     # 力をためるボタン
     def click_reserve(self):
-        pass
+        self.fbutton["state"] = "disabled"
+        self.rbutton["state"] = "disabled"
+        self.brave.reserve()
+        self.do_turn(-1)
+    
+    # 戦闘処理
+    def do_turn(self, brave_atk):
+        # 主人公のターン
+        monster_dfs = self.monster.get_dfs()
+        if brave_atk < 0:
+            labeltext = "勇者は力をためた"
+        else:
+            labeltext = "勇者は攻撃した"
+            self.label["text"] = labeltext
+            self.dialog.update()
+            # 主人公の攻撃の結果表示
+            time.sleep(2) #2秒待ち
+            dmg = brave_atk - monster_dfs
+            self.monster.culc_hp(brave_atk, monster_dfs)
+            if dmg <= 0:
+                labeltext = labeltext + "\n防がれた"
+            else:
+                labeltext = labeltext + "\n" + str(dmg) + \
+                    "のダメージを与えた"
+        # ラベル更新、残り体力表示
+        self.label["text"] = labeltext
+        self.dialog.update()
+        time.sleep(2) #2秒待ち
+        labeltext = labeltext + \
+            "\nモンスターの残り体力は" + str(self.monster.hp)
+        self.label["text"] = labeltext
+        self.dialog.update()
+        if self.monster.hp < 1:
+            time.sleep(2) #2秒待ち
+            self.fbutton["state"] = "normal"
+            self.rbutton["state"] = "normal"
+            self.fight_win()
+            return
+        # モンスターのターン
+        time.sleep(2) #2秒待ち
+        brave_dfs = self.brave.get_dfs()
+        if random.random() < 0.2:
+            labeltext = labeltext + "\n\nモンスターは力をためた"
+            self.monster.reserve()
+        else:
+            labeltext = labeltext + "\n\nモンスターの攻撃"
+            self.label["text"] = labeltext
+            self.dialog.update()
+            # モンスターの攻撃の結果表示
+            time.sleep(2) #2秒待ち
+            monster_atk = self.monster.get_atk()
+            dmg = monster_atk - brave_dfs
+            self.brave.culc_hp(monster_atk, brave_dfs)
+            if dmg <= 0:
+                labeltext = labeltext + "\n防いだ"
+            else:
+                labeltext = labeltext + "\n" + str(dmg) + \
+                    "のダメージを受けた"
+        # ラベル更新、残り体力表示
+        self.label["text"] = labeltext
+        self.dialog.update()
+        time.sleep(2) #2秒待ち
+        labeltext = labeltext + \
+            "\n勇者の残り体力は" + str(self.brave.hp)
+        self.label["text"] = labeltext
+        self.dialog.update()
+        if self.brave.hp < 1:
+            time.sleep(2) #2秒待ち
+            self.fight_lose()
+        else:
+            # ボタンを有効化して次のターンへ
+            self.fbutton["state"] = "normal"
+            self.rbutton["state"] = "normal"
     
     # 勝利
     def fight_win(self):
