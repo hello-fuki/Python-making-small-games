@@ -2,7 +2,22 @@ import tkinter
 
 # 解読関数
 def decord_line(event):
-    print("クリックされた")
+    global current_line, bgimg, lcharimg, ccharimg, rcharimg
+    if current_line >= len(scenario):
+        return;
+    # 1行読み込み
+    line = scenario[current_line]
+    current_line = current_line + 1
+    line = line.replace("\\n", "\n").strip()
+    params = line.split(" ")
+    # 分岐
+    if line[0] != "#":
+        message["text"] = line
+        return
+    elif params[0] == "#back":
+        canvas.delete("all")
+        bgimg = tkinter.PhotoImage(file=params[1])
+        canvas.create_image(450, 230, image=bgimg)
 
 # ウインドウ作成
 root = tkinter.Tk()
@@ -15,7 +30,7 @@ canvas.place(x=0, y=0)
 # メッセージエリア
 message = tkinter.Label(width=70, height=5, wraplength=840, bg="white", justify="left", anchor="nw")
 message.place(x=28, y=284)
-message["text"] = "あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお"
+message["text"] = "クリックしてスタート"
 
 # ファイル読み込み
 scenario = []
@@ -31,5 +46,10 @@ while True:
 current_line = 0
 # イベント設定
 message.bind("<Button-1>", decord_line)
+# 画像
+bgimg = None
+lcharimg = None
+ccharimg = None
+rcharimg = None
 
 root.mainloop()
