@@ -12,3 +12,14 @@ canvas.place(x=0, y=0)
 message = tkinter.Label(width=70, height=5, wraplength=840, bg="white", justify="left", anchor="nw")
 message.place(x=28, y=284)
 message["text"] = "あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお"
+
+# ファイル読み込み
+file = open("img/scenario.txt", "r", encoding="utf-8")
+while True:
+    line = file.readline()
+    print(line)
+    if not line:
+        file.close()
+        break
+    
+root.mainloop()
