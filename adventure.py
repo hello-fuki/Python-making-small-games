@@ -42,6 +42,24 @@ def decord_line(event):
     # 再帰呼び出し
     decord_line(None)   # 命令文でないときはreturnで関数を抜け出す仕組み
 
+# ジャンプ関数
+def jump_to_line(branchID):
+    global current_line
+    # ボタンを消す
+    for btn in branch:
+        btn.place_forget()
+        btn.destroy()
+    branch.clear()
+    label = jumplabel[branchID]
+    jumplabel.clear()
+    message.bind("<Button-1>", decord_line)
+    # ジャンプ先を探す
+    for l in range(len(scenario)):
+        if scenario[l].strip() == "## " + label:
+            current_line = l
+            decord_line(None)
+            return
+        
 # ウインドウ作成
 root = tkinter.Tk()
 root.title("よろしくアドベンチャー")
