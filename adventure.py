@@ -31,6 +31,14 @@ def decord_line(event):
             canvas.delete("center")
             ccharimg = tkinter.PhotoImage(file=params[1])
             canvas.create_image(450, 160, image=ccharimg, tag="center")
+    elif params[0] == "#branch":
+        message.unbind("<Button-1>")
+        btn = tkinter.Button(text=params[2], width=20)
+        branch.append(btn)
+        btn.place(x=300, y=60+int(params[1])*60)
+        jumplabel.append(params[3])
+        if params[4] == "n":
+            return
     # 再帰呼び出し
     decord_line(None)   # 命令文でないときはreturnで関数を抜け出す仕組み
 
@@ -66,5 +74,8 @@ bgimg = None
 lcharimg = None
 ccharimg = None
 rcharimg = None
+# 選択肢
+branch = []
+jumplabel = []
 
 root.mainloop()
