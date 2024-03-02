@@ -39,6 +39,18 @@ def decord_line(event):
         jumplabel.append(params[3])
         if params[4] == "n":
             return
+    elif params[0] == "#jump":
+        label = params[1].strip()
+        # ジャンプ先を探す
+        for l in range(len(scenario)):
+            if scenario[l].strip() == "## " + label:
+                current_line = l
+                decord_line(None)
+                return
+    elif params[0].strip() == "#end":
+        message["text"] = "終わり"
+        message.unbind("<Button-1>")
+        current_line = 999999999
     # 再帰呼び出し
     decord_line(None)   # 命令文でないときはreturnで関数を抜け出す仕組み
 
