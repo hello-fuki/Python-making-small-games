@@ -18,6 +18,21 @@ def decord_line(event):
         canvas.delete("all")
         bgimg = tkinter.PhotoImage(file=params[1])
         canvas.create_image(450, 230, image=bgimg)
+    elif params[0] == "#putChar":
+        if params[2] == "L":
+            canvas.delete("left")
+            lcharimg = tkinter.PhotoImage(file=params[1])
+            canvas.create_image(200, 160, image=lcharimg, tag="left")
+        elif params[2] == "R":
+            canvas.delete("right")
+            rcharimg = tkinter.PhotoImage(file=params[1])
+            canvas.create_image(700, 160, image=rcharimg, tag="right")
+        else:
+            canvas.delete("center")
+            ccharimg = tkinter.PhotoImage(file=params[1])
+            canvas.create_image(450, 160, image=ccharimg, tag="center")
+    # 再帰呼び出し
+    decord_line(None)   # 命令文でないときはreturnで関数を抜け出す仕組み
 
 # ウインドウ作成
 root = tkinter.Tk()
